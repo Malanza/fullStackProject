@@ -13,7 +13,7 @@ const pool = new Pool ({
 
 app.use(express.static('public'));
 
-app.get('/', async (req,res)=>{
+app.get('/get', async (req,res)=>{
     try {
         const {rows} = await pool.query('SELECT * FROM fitnesstracker')
         res.send(rows);

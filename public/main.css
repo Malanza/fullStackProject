@@ -1,8 +1,20 @@
 h1{
-    color: red;
-};
+    color: blue;
+}
 
-#btn {
+#btn{
     color: aqua;
+    background-color: aquamarine;
+    display: inline-block;
+    padding: .5rem 1rem;
+}
 
-};
+#btn:hover{
+    cursor: pointer;
+    opacity: 0.2;
+}
+
+#container{
+    color: aqua;
+    font-family: 'Courier New', Courier, monospace;
+}
