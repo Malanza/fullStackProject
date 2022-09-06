@@ -22,7 +22,35 @@ app.get('/get', async (req,res)=>{
     }
 });
 
+app.get('/get/:id', async (req,res)=>{
+    try {
+        const {id} = req.params
+        const {rows} = await pool.query('SELECT * FROM fitnesstracker WHERE id = $1', [id])
+        res.send(rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+});
 
+app.post('/post', async (req,res)=>{
+    const{date, workout, duration} = req.body;
+    try {
+        const {rows} = await pool.query('INSERT INTO fitnesstracker(date, workout, duration) VALUES($1, $2, $3)',[date, workout, duration])
+        res.send(rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+});
+
+app.delete('/delete/:id', async (req,res) =>{
+    try {
+        const {id} = req.params;
+        await pool.query('DELETE FROM fitnesstracker WHERE id = $1', [id])
+        //res.send(rows);
+    } catch (error) {
+        console.log(error);
+    }
+});
 
 
 

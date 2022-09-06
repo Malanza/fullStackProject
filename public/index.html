@@ -5,13 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Document</title>
 </head>
 <body>
     <h1>Fitness Tracker</h1>
-    <div id="workout-container"></div>
-    <div id="dates-container"></div>
-    <div id="duration-container"></div>
+    
+    
+    
+    <div class="banner-info">
+        <span><label>Workout</label></span>
+        <span><input id="inputWorkout" type="text" class="text-center" required="" placeholder="Enter Workout Name"></span><br>
+        <span><label>Date</label></span>
+        <span><input id="inputDate" type="date" class="text-center" required=""></span><br>
+        <span><label>Duration </label></span>
+        <span><input id="inputDuration" type="number" class="number" required=""></span><br>
+        <button id="submit">Submit</button>
+    </div>
+    <table id="t1">
+        <caption>Fitness Table</caption>
+        <colgroup>
+            <col span="2" class="c2">
+            <col>
+            <col class="c1">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Workouts</th>
+                <th>Date</th>
+                <th>Duration</th>
+            </tr>
+            
+        </thead>
+        <tbody id="insertionPoint">
+          <tr>
+            <td><div id="workout-container"></div></td>
+            <td><div id="dates-container"></div></td>
+            <td><div id="duration-container"></div></td>
+          </tr>
+        </tbody>
+    </table>
     <button id="btn">Inquiry</button>
     <script src="app.js"></script>
 </body>
