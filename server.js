@@ -47,11 +47,7 @@ app.patch('/patch/:id', async (req,res)=>{
     const {id} = req.params;
     const {date, workout, duration} = req.body;
     
-    if(date, workout, duration){
-        await pool.query('UPDATE fitnesstracker SET date = $1, workout = $2, duration = $3 WHERE id = $4', [date, workout, duration, id]);    
-        const {rows} = await pool.query('SELECT * FROM fitnesstracker WHERE id = $1',[id]);
-        res.send(rows);
-    }   if(!date || !workout || !duration){
+      if(!date || !workout || !duration){
             if(date){
             await pool.query('Update fitnesstracker SET date = $1 WHERE id = $2', [date,id]);
             }
@@ -61,6 +57,11 @@ app.patch('/patch/:id', async (req,res)=>{
             if(duration){
             await pool.query('Update fitnesstracker SET duration = $1 WHERE id = $2', [duration,id]);
             }
+            const {rows} = await pool.query('SELECT * FROM fitnesstracker WHERE id = $1',[id]);
+            res.send(rows);
+            } 
+        else if(date && workout && duration){
+            await pool.query('UPDATE fitnesstracker SET date = $1, workout = $2, duration = $3 WHERE id = $4', [date, workout, duration, id]);    
             const {rows} = await pool.query('SELECT * FROM fitnesstracker WHERE id = $1',[id]);
             res.send(rows);
         } 

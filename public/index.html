@@ -9,21 +9,21 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Fitness Tracker</h1>
-    
-    
-    
-    <div class="banner-info">
-        <span><label>Workout</label></span>
-        <span><input id="inputWorkout" type="text" class="text-center" required="" placeholder="Enter Workout Name"></span><br>
-        <span><label>Date</label></span>
-        <span><input id="inputDate" type="date" class="text-center" required=""></span><br>
-        <span><label>Duration </label></span>
-        <span><input id="inputDuration" type="number" class="number" required=""></span><br>
-        <button id="submit">Submit</button>
+    <div class="header">
+        <div class="inner_header">
+            <div class="logo_container">
+                <h1>FITNESS<span>TRACKER</span></h1>
+            </div>
+            <ul class="navigation">
+                 <a><li>Home</li></a>
+                 <a><li>About</li></a>    
+                 <a><li>Contact</li></a> 
+            </ul>
+        </div>
     </div>
+    
     <table id="t1">
-        <caption>Fitness Table</caption>
+        
         <colgroup>
             <col span="2" class="c2">
             <col>
@@ -40,16 +40,27 @@
             
         </thead>
         <tbody id="insertionPoint">
-          <tr>
+          <tr class="tracker-row">
             <td><div id="workout-container"></div></td>
             <td><div id="dates-container"></div></td>
             <td><div id="duration-container"></div></td>
+            <td><div id = "minutes-container"></div></td>
             <td><div id="btn-container"></div></td>
           </tr>
         </tbody>
     </table>
     <button id="btn">Inquiry</button>
     <button id ="save">Save Changes</button>
+    <div class="banner-info">
+        <span><label>Workout</label></span>
+        <span><input id="inputWorkout" type="text" class="text-center" required="" placeholder="Enter Workout Name"></span><br>
+        <span><label>Date</label></span>
+        <span><input id="inputDate" type="date" class="text-center" required=""></span><br>
+        <span><label>Duration </label></span>
+        <span><input id="inputDuration" type="number" class="number" required=""></span><br>
+        <button id="submit">Submit</button>
+    </div>
     <script src="app.js"></script>
+
 </body>
 </html>

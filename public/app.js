@@ -4,7 +4,7 @@ const btn_container = document.querySelector('#btn-container');
 const submit = document.querySelector('#submit');
 const dlt = document.createElement('button');
 const save = document.querySelector('#save');
-
+const minutes = document.querySelector('#minutes-container');
 const inputWorkout = document.getElementById('inputWorkout');
 const inputDate = document.getElementById('inputDate');
 const inputDuration = document.getElementById('inputDuration');
@@ -13,12 +13,12 @@ const insertionPoint = document.getElementById("insertionPoint");
 const workoutContainer = document.querySelector('#workout-container');
 const datesContainer = document.querySelector('#dates-container');
 const durationContainer = document.querySelector('#duration-container');
-getOne()
+getAll()
 postData()
 deleteData()
 
 //patchData()
-function getOne(){
+function getAll(){
     btn.addEventListener('click', fetchData)
 }
 
@@ -33,10 +33,10 @@ async function fetchData(){
         const dates = cardio[i].date;
         const time = cardio[i].duration;
         const workoutId = cardio[i].id
-        const dlt = document.createElement('button');
-        dlt.textContent = 'x'
-        dlt.id = workoutId;
-        dlt.className = 'delete';
+        // const dlt = document.createElement('button');
+        // dlt.textContent = 'x'
+        // dlt.id = workoutId;
+        // dlt.className = 'delete';
       
         
      
@@ -44,6 +44,7 @@ async function fetchData(){
         workoutsDivs(workouts,workoutId)
         datesDivs(dates,workoutId)
         durationDivs(time,workoutId)
+        
     }
     
 }
@@ -80,6 +81,7 @@ async function fetchPostData(){
         workouts.append(element);
         workoutContainer.append(workouts)
         patchData(id_1,workouts)
+       
     }
     
     
@@ -95,20 +97,26 @@ async function fetchPostData(){
     function durationDivs(element,id){
         const container = document.createElement('div');
         const BtnContainer = document.createElement('div');
+       
         const dlt_id = container.id = id;
         const changes = container.contentEditable = true;
         container.className = 'duration';
         container.append(`${element} `);
         const dlt = document.createElement('button');
         dlt.innerText = 'x';
-        dlt.id = 'delete';
+        dlt.id = dlt_id;
+        dlt.className ='delete';
         BtnContainer.append(dlt);
         //container.append(BtnContainer);
         btn_container.append(BtnContainer);
         durationContainer.append(container);
+        const minutesDiv = document.createElement('div');
+        minutesDiv.id = dlt_id;
+        minutesDiv.innerText = 'minutes'
+        minutes.append(minutesDiv);
         deleteData(dlt_id,dlt) 
         //patchData2(dlt_id)
-        //patchData3(dlt_id,container)
+        patchData3(dlt_id,container)
     }
  
 async function deleteData(id,dlt){
@@ -128,14 +136,15 @@ async function deleteData(id,dlt){
 })
 }
 
+
 async function patchData(id,workouts){
    save.addEventListener('click', async (e) =>{
-    const duration = document.querySelector('#duration');
-    const date = document.querySelector('.date-container');    
+    // const duration = document.querySelector('#duration');
+    // const date = document.querySelector('.date-container');    
     const inpuData = {
             //date: date.innerText,
           workout: workouts.innerText
-           //duration: inputDuration.value
+           //duration: container.innerText
           };
         
         const response = await fetch(`http://localhost:3000/patch/${id}`, {
@@ -185,8 +194,8 @@ async function patchData2(id,date){
             duration: container.innerText
            };
          
-         const response =  await fetch(`http://localhost:3000/put/${id}`, {
-         method: 'PUT',
+         const response =  await fetch(`http://localhost:3000/patch/${id}`, {
+         method: 'PATCH',
          headers:{
             'Content-Type': 'application/json'
         },
@@ -197,13 +206,6 @@ async function patchData2(id,date){
      console.log(inpuData);
  })
  };
-
-
-
-
-
-
-
 
 
 // const trWorkout = document.createElement('td')
