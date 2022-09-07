@@ -1,12 +1,15 @@
 const btn = document.querySelector('#btn');
 const body = document.querySelector('body');
-
+const btn_container = document.querySelector('#btn-container');
 const submit = document.querySelector('#submit');
 const dlt = document.createElement('button');
+const save = document.querySelector('#save');
+
 const inputWorkout = document.getElementById('inputWorkout');
 const inputDate = document.getElementById('inputDate');
 const inputDuration = document.getElementById('inputDuration');
 const insertionPoint = document.getElementById("insertionPoint");
+
 const workoutContainer = document.querySelector('#workout-container');
 const datesContainer = document.querySelector('#dates-container');
 const durationContainer = document.querySelector('#duration-container');
@@ -14,6 +17,7 @@ getOne()
 postData()
 deleteData()
 
+//patchData()
 function getOne(){
     btn.addEventListener('click', fetchData)
 }
@@ -71,28 +75,40 @@ async function fetchPostData(){
     };
     function workoutsDivs(element,id){
         const workouts = document.createElement('div');
-        workouts.id = id;
+        const id_1 = workouts.id = id;
+        const changes = workouts.contentEditable = true;
         workouts.append(element);
         workoutContainer.append(workouts)
+        patchData(id_1,workouts)
     }
     
     
     function datesDivs(element,id){
-        const container = document.createElement('div');
-        container.id = id;
-        container.append(element);
-        datesContainer.append(container);
+        const date = document.createElement('div');
+        const id_2 = date.id = id;
+        const changes = date.contentEditable = true;
+        date.className = "date-container";
+        date.append(element);
+        datesContainer.append(date);
+        patchData2(id_2,date)
     }
     function durationDivs(element,id){
         const container = document.createElement('div');
+        const BtnContainer = document.createElement('div');
         const dlt_id = container.id = id;
-        container.append(`${element} minutes`);
+        const changes = container.contentEditable = true;
+        container.className = 'duration';
+        container.append(`${element} `);
         const dlt = document.createElement('button');
         dlt.innerText = 'x';
-        
-        container.append(dlt);
+        dlt.id = 'delete';
+        BtnContainer.append(dlt);
+        //container.append(BtnContainer);
+        btn_container.append(BtnContainer);
         durationContainer.append(container);
         deleteData(dlt_id,dlt) 
+        //patchData2(dlt_id)
+        //patchData3(dlt_id,container)
     }
  
 async function deleteData(id,dlt){
@@ -112,8 +128,75 @@ async function deleteData(id,dlt){
 })
 }
 
+async function patchData(id,workouts){
+   save.addEventListener('click', async (e) =>{
+    const duration = document.querySelector('#duration');
+    const date = document.querySelector('.date-container');    
+    const inpuData = {
+            //date: date.innerText,
+          workout: workouts.innerText
+           //duration: inputDuration.value
+          };
+        
+        const response = await fetch(`http://localhost:3000/patch/${id}`, {
+        method: 'PATCH',
+        headers:{
+          'Content-Type': 'application/json;charset=utf-8'
+            
+        },
+        body: JSON.stringify(inpuData)
+    })
+    
+    // const json = await data.json();
+    console.log(inpuData);
+})
+};
 
+async function patchData2(id,date){
+    const duration = document.querySelector('#duration');
+    //const date = document.querySelector('.date-container');
+    save.addEventListener('click', async (e) =>{
+         const inpuData = {
+            date: date.innerText
+           //workout: workouts.innerText
+            //duration: duration.innerText
+           };
+         
+         const response = await fetch(`http://localhost:3000/patch/${id}`, {
+         method: 'PATCH',
+         headers:{
+           'Content-Type': 'application/json;charset=utf-8'
+             
+         },
+         body: JSON.stringify(inpuData)
+     })
+     
+     // const json = await data.json();
+     console.log(inpuData);
+ })
+ };
 
+ async function patchData3(id,container){
+    save.addEventListener('click', async (e) =>{
+        const duration = document.querySelector('.duration'); 
+        const inpuData = {
+            //date: date.innerText
+           //workout: workouts.innerText
+            duration: container.innerText
+           };
+         
+         const response =  await fetch(`http://localhost:3000/put/${id}`, {
+         method: 'PUT',
+         headers:{
+            'Content-Type': 'application/json'
+        },
+         body: JSON.stringify(inpuData)
+     })
+     
+     // const json = await data.json();
+     console.log(inpuData);
+ })
+ };
 
 
 

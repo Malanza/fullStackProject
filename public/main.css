@@ -55,3 +55,63 @@ h1{
     cursor: pointer;
     opacity: 0.2;
 }
+
+#t1{
+    font-size: 14px;
+    border-collapse: collapse;
+    width: 600px;
+    font-family: sans-serif;
+}
+
+#t1 th {
+    font-size: 1.15em;
+    font-weight: normal;
+    color: #ffffff;
+    background: #086654;
+}
+
+#dates-container{
+    text-align: center;
+}
+
+#duration-container{
+    text-align: center;
+    margin-left: 5ch;
+    
+}
+
+#workout-container{
+    font-family: sans-serif;
+}
+
+#delete{
+  background: none;
+  border: none;
+  outline: none;
+  color: red;
+  cursor: pointer;
+  margin-left: 1rem;
+  display:inline-table;
+  justify-content: center;
+  align-items: center; 
+}
+
+caption {
+    color: #086654;
+    font-size: 1.15em;
+    font-weight: normal;
+    font-family:sans-serif;
+    margin-right: 5rem;
+}
+
+#save{
+    color: aqua;
+    background-color: aquamarine;
+    display: inline-block;
+    padding: .5rem 1rem; 
+}
+
+#save:hover{
+    cursor: pointer;
+    opacity: 0.2;
+}
