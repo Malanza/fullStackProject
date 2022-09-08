@@ -7,8 +7,7 @@ CREATE TABLE fitnesstracker(
     duration integer
 );
 
-INSERT INTO fitnesstracker(date, workout, duration) VALUES('Monday', 'Cardio', 45);
-INSERT INTO fitnesstracker(date, workout, duration) VALUES('Tuesday', 'Cycling', 55);
-INSERT INTO fitnesstracker(date, workout, duration) VALUES('Wednsday', 'Swiming', 30);
-INSERT INTO fitnesstracker(date, workout, duration) VALUES('Thursday', 'Weightlifting', 40);
-INSERT INTO fitnesstracker(date, workout, duration) VALUES('Friday', 'Cardio', 45);
+INSERT INTO fitnesstracker(date, workout, duration) VALUES('2022-09-01', 'Chest', 45);
+INSERT INTO fitnesstracker(date, workout, duration) VALUES('2022-09-02', 'Swim', 55);
+INSERT INTO fitnesstracker(date, workout, duration) VALUES('2022-09-03', 'Legs', 30);
+INSERT INTO fitnesstracker(date, workout, duration) VALUES('2022-09-05', 'Shoulders', 45);

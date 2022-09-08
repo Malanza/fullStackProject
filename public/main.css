@@ -101,7 +101,8 @@ body {
 
 #insertionPoint{
     color: rgb(43, 0, 255);
-    font-family: 'Courier New', Courier, monospace
+    font-family: 'Courier New', Courier, monospace;
+    border-bottom: 3px solid #086654;
 }
 
 #submit{
@@ -125,6 +126,7 @@ body {
     font-family: sans-serif;
     margin-top: 5rem;
     margin-left: 1rem;
+    
 }
 
 #t1 th {
@@ -149,15 +151,18 @@ body {
 }
 
 .delete{
+  display: flex;
   background: none;
   border: none;
   outline: none;
   color: red;
   cursor: pointer;
+  font-size: .9rem;
   margin-left: 1rem;
   display:inline-table;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
+  
 }
 
 caption {

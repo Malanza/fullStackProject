@@ -15,7 +15,7 @@ const datesContainer = document.querySelector('#dates-container');
 const durationContainer = document.querySelector('#duration-container');
 getAll()
 postData()
-deleteData()
+//deleteData()
 
 //patchData()
 function getAll(){
