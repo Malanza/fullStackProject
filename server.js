@@ -3,19 +3,22 @@ const app = express()
 app.use(express.json());
 
 const{Pool} = require('pg')
-const pool = new Pool ({ 
-    user:'Melvinn',
-    password:'halo123',
-    host:'localhost',
-    port:5432,
-    database:'fitness'
-});
+const PORT = process.env.PORT || 3000
+const db = require('./db/conn')
+
+// const pool = new Pool ({ 
+//     user:'Melvinn',
+//     password:'halo123',
+//     host:'localhost',
+//     port:5432,
+//     database:'fitness'
+// });
 
 app.use(express.static('public'));
 
 app.get('/get', async (req,res)=>{
     try {
-        const {rows} = await pool.query('SELECT * FROM fitnesstracker')
+        const {rows} = await db.query('SELECT * FROM fitnesstracker')
         res.send(rows);
     } catch (error) {
         console.log(error.message);
@@ -25,7 +28,7 @@ app.get('/get', async (req,res)=>{
 app.get('/get/:id', async (req,res)=>{
     try {
         const {id} = req.params
-        const {rows} = await pool.query('SELECT * FROM fitnesstracker WHERE id = $1', [id])
+        const {rows} = await db.query('SELECT * FROM fitnesstracker WHERE id = $1', [id])
         res.send(rows);
     } catch (error) {
         console.log(error.message);
@@ -35,7 +38,7 @@ app.get('/get/:id', async (req,res)=>{
 app.post('/post', async (req,res)=>{
     const{date, workout, duration} = req.body;
     try {
-        const {rows} = await pool.query('INSERT INTO fitnesstracker(date, workout, duration) VALUES($1, $2, $3)',[date, workout, duration])
+        const {rows} = await db.query('INSERT INTO fitnesstracker(date, workout, duration) VALUES($1, $2, $3)',[date, workout, duration])
         res.send(rows);
     } catch (error) {
         console.log(error.message);
@@ -49,20 +52,20 @@ app.patch('/patch/:id', async (req,res)=>{
     
       if(!date || !workout || !duration){
             if(date){
-            await pool.query('Update fitnesstracker SET date = $1 WHERE id = $2', [date,id]);
+            await db.query('Update fitnesstracker SET date = $1 WHERE id = $2', [date,id]);
             }
             if(workout){
-            await pool.query('Update fitnesstracker SET workout = $1 WHERE id = $2', [workout,id]);
+            await db.query('Update fitnesstracker SET workout = $1 WHERE id = $2', [workout,id]);
             }
             if(duration){
-            await pool.query('Update fitnesstracker SET duration = $1 WHERE id = $2', [duration,id]);
+            await db.query('Update fitnesstracker SET duration = $1 WHERE id = $2', [duration,id]);
             }
-            const {rows} = await pool.query('SELECT * FROM fitnesstracker WHERE id = $1',[id]);
+            const {rows} = await db.query('SELECT * FROM fitnesstracker WHERE id = $1',[id]);
             res.send(rows);
             } 
         else if(date && workout && duration){
-            await pool.query('UPDATE fitnesstracker SET date = $1, workout = $2, duration = $3 WHERE id = $4', [date, workout, duration, id]);    
-            const {rows} = await pool.query('SELECT * FROM fitnesstracker WHERE id = $1',[id]);
+            await db.query('UPDATE fitnesstracker SET date = $1, workout = $2, duration = $3 WHERE id = $4', [date, workout, duration, id]);    
+            const {rows} = await db.query('SELECT * FROM fitnesstracker WHERE id = $1',[id]);
             res.send(rows);
         } 
     }catch(error){
@@ -73,7 +76,7 @@ app.patch('/patch/:id', async (req,res)=>{
 app.delete('/delete/:id', async (req,res) =>{
     try {
         const {id} = req.params;
-        await pool.query('DELETE FROM fitnesstracker WHERE id = $1', [id])
+        await db.query('DELETE FROM fitnesstracker WHERE id = $1', [id])
         //res.send(rows);
     } catch (error) {
         console.log(error);
@@ -82,6 +85,6 @@ app.delete('/delete/:id', async (req,res) =>{
 
 
 
-app.listen(3000,()=>{
-    console.log('listening to port',3000);
+app.listen(PORT,()=>{
+    console.log('listening to port',`${PORT}`);
 });
